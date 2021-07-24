@@ -1,2 +1,14 @@
 # YukiChanBot
- This is the public information of my YukiChanBot, I appreciate any help :)
+Plannings and task:
+-Casino
+	blackJack (hard)
+	texasHoldem (hard)
+	slotMachine (medium)
+-PetShop
+	(pets, can do later)
+-Missions
+	(need ideas)
+-pet functions (easy/medium)
+-mainShop(medium)
+
+
