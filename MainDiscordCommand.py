@@ -1,5 +1,5 @@
 import discord, random, os
-from database import ids
+from database import ids, profile
 from discord.ext import commands
 from helpText import help
 
@@ -17,8 +17,9 @@ async def leaderboard(ctx):
 async def help(ctx):
     print(help)
 
-async def accountCreation(user):
-    ids(user)
+async def p(ctx):
+    username = await ctx.message.author.id
+    if ids(username):
+        await ctx.send(profile(username))
         
-
 client.run(os.getenv('TOKEN'))
