@@ -1,25 +1,19 @@
-import discord, random, os
+import discord
 from database import ids, profile
 from discord.ext import commands
-from helpText import help
 
 client = discord.Client()
-client = commands.bot(command_prefix='-')
+client = commands.Bot(command_prefix='-')
 
 #commands
 @client.command()
-async def profile(ctx, arg):
+async def test(ctx, arg):
     await ctx.send(arg)
 
-async def leaderboard(ctx):
-    print(leaderboard)
-
-async def help(ctx):
-    print(help)
-
+@client.command()
 async def p(ctx):
-    username = await ctx.message.author.id
+    username = ctx.message.author.id
     if ids(username):
-        await ctx.send(profile(username))
+        await ctx.send(username)
         
-client.run(os.getenv('TOKEN'))
+client.run('ODQ2NTg1MDMyMTg5NTQyNDEw.YKxpwA.zUSGN7_vFNV7xIVV69Ulss1AdoE')
