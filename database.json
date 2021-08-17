@@ -2,7 +2,51 @@
     "users": [
         {
             "_id": "288623940404772865",
-            "power": "1"
+            "class": "mage",
+            "level": 1,
+            "coin": 0,
+            "exp": 0,
+            "power": 5,
+            "hp": 10,
+            "speed": 1,
+            "endurance": 0,
+            "stamina": 20,
+            "inventory": {
+                "blueMushroom": 1,
+                "greenMushroom": 2,
+                "yellowMushroom": 3,
+                "redMushroom": 2,
+                "whiteMushroom": 2,
+                "blackMushroom": 1
+            },
+            "guild": true
+        },
+        {
+            "_id": "704319552321749022",
+            "class": "archer",
+            "level": 1,
+            "coin": 0,
+            "exp": 0,
+            "power": 5,
+            "hp": 15,
+            "speed": 3,
+            "endurance": 0,
+            "stamina": 20
+        },
+        {
+            "_id": "469428297584082956",
+            "class": "mage",
+            "level": 1,
+            "coin": 0,
+            "exp": 0,
+            "power": 5,
+            "hp": 10,
+            "speed": 1,
+            "endurance": 0,
+            "stamina": 20
+        },
+        {
+            "_id": "<built-in function id>"
         }
     ]
 }

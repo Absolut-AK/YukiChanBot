@@ -11,11 +11,11 @@ def check(id):
         for i in data['users']:
             tempData.append(i['_id'])
     if usersId in tempData:
-        return "Already There (≧‿≦ ✿)"
+        print("Already There (≧‿≦ ✿)")
     else:
         data['users'].append({"_id": usersId})
         write_json(data)
-        return data['users'], "Added (>_<)"
+        print(data['users'], "Added (>_<)")
 
 def idIndexFinder(id):
     with open('database.json') as f:
@@ -47,14 +47,64 @@ def getDataValue(id, name):
         temp = data['users']
         tempData = temp[realId]
         if name in tempData:
-            print(tempData[name])
-        else:
-            print(None)
-inserting(288623940404772865, 'power', '1')
-getDataValue(288623940404772865, 'power')
-    
+            return tempData[name]
+        elif name not in tempData:
+            return None
+            
+def getDataKey(id, name):
+    realId = idIndexFinder(id)
+    with open('database.json') as f:
+        data = json.load(f)
+        temp = data['users']
+        tempData = temp[realId]
+        if name in tempData:
+            return True
+        elif name not in tempData:
+            return False
 
+def getInvKey(id, name):
+    realId = idIndexFinder(id)
+    with open('database.json') as f:
+        data = json.load(f)
+        temp = data['users']
+        tempData = temp[realId]
+        invData = tempData['inventory']
+        if name in invData:
+            print('there')
+            return True
+        elif name not in invData:
+            print('not there')
+            return False
 
+def getInvValue(id, name):
+    realId = idIndexFinder(id)
+    with open('database.json') as f:
+        data = json.load(f)
+        temp = data['users']
+        tempData = temp[realId]
+        invData = tempData['inventory']
+        if name != None:
+            return invData[name]
+
+def invInsert(id, name, value):
+    realId = idIndexFinder(id)
+    with open('database.json') as f:
+        data = json.load(f)
+        temp = data['users']
+        tempData = temp[realId]
+        invData = tempData['inventory']
+        if name != None:
+            invData[name] = value
+            write_json(data)
+
+def getInvData(id):
+    realId = idIndexFinder(id)
+    with open('database.json') as f:
+        data = json.load(f)
+        temp = data['users']
+        tempData = temp[realId]
+        invArray = tempData['inventory']
+        return invArray
 
 
 
