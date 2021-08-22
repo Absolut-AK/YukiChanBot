@@ -1,6 +1,7 @@
-from jsonDatabase import getDataKey
+from jsonDatabase import getDataKey, check
 from profileStats import creatingUserClass
 def starterClass(msg, id):
+    check(id)
     if getDataKey(id, 'class'):
         return "You already have a class"
     else:

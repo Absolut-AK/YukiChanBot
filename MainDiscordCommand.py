@@ -5,20 +5,25 @@ from discord.ext import commands
 from jsonDatabase import *
 from DiscordPetShop import Inventory
 from StarterClass import starterClass
-from profileStats import profileStats, inventory
+from profileStats import profileStats, inventorys
 from quests import guess, coinFlip
 from location import locations
 from guild import guildSignup
+from levelSystem import *
+from petShop import petShops, buyPets
+from Shops import *
+from lootFromDungeon import *
+from fightingSystem import *
+from heal import healing
 client = discord.Client()
 client = commands.Bot(command_prefix='-')
-
 #commands
 @client.command()
 async def petshop(ctx):
     await ctx.send(Inventory)
     await ctx.message.author
 @client.command()
-async def p(ctx):
+async def profile(ctx):
     id = ctx.message.author.id
     embed = discord.Embed(title="Profile", description=profileStats(id))
     await ctx.send(embed=embed)
@@ -29,11 +34,11 @@ async def starter(ctx):
     embed = discord.Embed(title="StarterClasses", description=
     '''
     🙤Swordsman
-    \t-Swordsman, are more durable, and more balanced class.\n
+    \t-Swordsman, are more durable, slower than Archer, and it's the most durable class.\n
     🙤Archer
     \t-Archer, are more faster and are better against bosses.\n
     🙤Mage
-    \t-Mage, are stronger against multiple enemies, and it is the slowest class.\n
+    \t-Mage, Stronger than Swordsman, but not more durable,not stronger than archer, and it is the slowest class.\n
     Write your desired class, this can't be changed in the future for free!	(─‿‿─)
     ''')
     await ctx.send(embed=embed)
@@ -58,10 +63,11 @@ async def quests(ctx):
     ''')
     await ctx.send(embed=embed)
 @client.command()
-async def cf(ctx, ammount=0, HorT=None):
+async def coinflip(ctx, ammount=0, HorT=None):
     id = ctx.message.author.id
     if getDataValue(id, 'coin') >= 10 and  getDataValue(id, 'coin') >= ammount:
-        HorT = HorT.lower()
+        if HorT != None:
+            HorT = HorT.lower()
         if ammount < 10  or ammount > 100 or HorT == None:
             await ctx.send("Choose your bet(min 10, max 100) and guessing side(-coinflip 10 tails or heads)")
         elif HorT == 'heads' or HorT == 'tails':
@@ -72,7 +78,7 @@ async def cf(ctx, ammount=0, HorT=None):
         await ctx.send("You don't have enough coins. <(￣︶￣)>")
 
 @client.command()
-async def g(ctx, gNum=0, diff=0):
+async def guess(ctx, gNum=0, diff=0):
     id = ctx.message.author.id
     if getDataKey(id, 'class'):
         if gNum == None or diff == None:
@@ -98,7 +104,7 @@ async def guild(ctx):
         await ctx.send(guildSignup(id, msg))
 
 @client.command()
-async def f(ctx, location=None):
+async def find(ctx, location=None):
     id = ctx.message.author.id
     if location != None:
         text = locations(id, location)
@@ -106,10 +112,66 @@ async def f(ctx, location=None):
         await ctx.send("You didn't pick a location, do -find (location) ex. forest")
     await ctx.send(text)
 @client.command()
-async def sell(ctx, item):
-    pass
-@client.command()
-async def i(ctx):
+async def sell(ctx, item, ammount=1):
     id = ctx.message.author.id
-    await ctx.send(inventory(id))
-client.run('ODQ2NTg1MDMyMTg5NTQyNDEw.YKxpwA.zUSGN7_vFNV7xIVV69Ulss1AdoE')
+    if item == None:
+        ctx.send('Please write the item name after the command.')
+    await ctx.send(sells(id, item, ammount))
+@client.command()
+async def inventory(ctx):
+    id = ctx.message.author.id
+    text = ''
+    for key, value in inventorys(id).items():
+        if value != 0:
+            text += f"{key}: {value} \n"
+    await ctx.send(text)
+
+@client.command()
+async def dungeon(ctx, floor=None):
+    id = ctx.message.author.id
+    user = openNewDic(id, 'userStats')
+    enemy = openNewDic(id, 'enemy')
+    if getDataKey(id, 'guild'):
+        enemys(id, floor)
+        await ctx.send("entering dungeon")
+        enemy = openNewDic(id, 'enemy')
+        await ctx.send(f"Enemy Health: {enemy['hp']}")
+        if floor == None:
+            await ctx.send("enter floor number")
+        else:
+            while user['hp'] > 0:
+                while enemy['hp'] > 0:
+                    await ctx.send("Choose your ability, 1, 2, 3 ,4")
+                    try:
+                        msg = await client.wait_for("message", timeout=30, check=lambda message: message.author == ctx.author and 
+                        message.channel == ctx.channel)
+                    except asyncio.TimeoutError:
+                        await ctx.message.delete()
+                    await ctx.send(fight(id, msg))
+                    user = openNewDic(id, 'userStats')
+                    enemy = openNewDic(id, 'enemy')
+                    if enemy['hp'] <= 0:
+                        loot = lootGain(id, floor)
+                        coin = coinGain(id, floor)
+                        await ctx.send(f"You killed enemy, earned {coin} coin, you got a {loot}")
+                    elif user['hp'] <= 0:
+                        await ctx.send("You died")
+                        break
+                user = openNewDic(id, 'userStats')
+                enemy = openNewDic(id, 'enemy')
+
+                if user['hp'] <= 0:
+                    break
+                else:
+                    break
+            else:
+                await ctx.send("You need to heal")
+
+@client.command()
+async def heal(ctx):
+    id = ctx.message.author.id
+    healing(id)
+#hiddenCode
+def hiddenCode():
+    client.run('ODQ2NTg1MDMyMTg5NTQyNDEw.YKxpwA.zUSGN7_vFNV7xIVV69Ulss1AdoE')
+hiddenCode()    

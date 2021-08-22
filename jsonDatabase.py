@@ -70,10 +70,8 @@ def getInvKey(id, name):
         tempData = temp[realId]
         invData = tempData['inventory']
         if name in invData:
-            print('there')
             return True
         elif name not in invData:
-            print('not there')
             return False
 
 def getInvValue(id, name):
@@ -106,5 +104,49 @@ def getInvData(id):
         invArray = tempData['inventory']
         return invArray
 
+def insertingDic(id, name):
+    realId = idIndexFinder(id)
+    with open('database.json') as f:
+        data = json.load(f)
+        temp = data['users']
+        tempData = temp[realId]
+        tempData[name] = {}
+        write_json(data)
 
+def openNewDic(id, name):
+    realId = idIndexFinder(id)
+    with open('database.json') as f:
+        data = json.load(f)
+        temp = data['users']
+        tempData = temp[realId]
+        return tempData[name]
+
+def insertInDic(id, dicName, key, value):
+    realId = idIndexFinder(id)
+    with open('database.json') as f:
+        data = json.load(f)
+        temp = data['users']
+        tempData = temp[realId]
+        insideDic = tempData[dicName]
+        insideDic[key] = value
+        write_json(data)
+
+def isNewDic(id, name):
+    realId = idIndexFinder(id)
+    with open('database.json') as f:
+        data = json.load(f)
+        temp = data['users']
+        tempData = temp[realId]
+        if name in tempData:
+            return True
+        else:
+            return False
+def getDicValue(id, dicName, name):
+    realId = idIndexFinder(id)
+    with open('database.json') as f:
+        data = json.load(f)
+        temp = data['users']
+        tempData = temp[realId]
+        insideDic = tempData[dicName]
+        return insideDic[name]
 
