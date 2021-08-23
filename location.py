@@ -1,5 +1,5 @@
 import random
-from jsonDatabase import invInsert, getInvKey, getInvValue
+from jsonDatabase import *
 def locations(id, location):
     if location == 'forest':
         return forest(id)
@@ -24,31 +24,38 @@ def forest(id):
         invInsert(id, randomItem, 1)
     return f'You found {randomItem} x1'
 def cave(id):
-    items = ['gold', 'iron', 'coal', 'sulfur', 'coal', 'iron']
-    randomItem = random.choice(items)
-    if getInvKey(id, randomItem):
-        value = getInvValue(id, randomItem)
-        print(value)
-        value += 1
-        print(value)
-        invInsert(id, randomItem, value)
+    if getDataKey(id, 'pickaxe'):
+        items = ['gold', 'iron', 'coal', 'sulfur', 'coal', 'iron']
+        randomItem = random.choice(items)
+        if getInvKey(id, randomItem):
+            value = getInvValue(id, randomItem)
+            print(value)
+            value += 1
+            print(value)
+            invInsert(id, randomItem, value)
+        else:
+            invInsert(id, randomItem, 1)
+        return f'You found {randomItem} x1'
     else:
-        invInsert(id, randomItem, 1)
-    return f'You found {randomItem} x1'
+        return "You don't have a pickaxe, buy in -shop"
 def lake(id):
-    items = ['smallFish', 'mediumFish', 'bigFish', 'hugeFish', 'smallFish', 'smallFish', 'mediumFish', 'mediumFish', 'bigFish']
-    randomItem = random.choice(items)
-    if getInvKey(id, randomItem):
-        value = getInvValue(id, randomItem)
-        print(value)
-        value += 1
-        print(value)
-        invInsert(id, randomItem, value)
+    if getDataKey(id, 'fishingrod'):
+        items = ['smallFish', 'mediumFish', 'bigFish', 'hugeFish', 'smallFish', 'smallFish', 'mediumFish', 'mediumFish', 'bigFish']
+        randomItem = random.choice(items)
+        if getInvKey(id, randomItem):
+            value = getInvValue(id, randomItem)
+            print(value)
+            value += 1
+            print(value)
+            invInsert(id, randomItem, value)
+        else:
+            invInsert(id, randomItem, 1)
+        return f'You found {randomItem} x1'
     else:
-        invInsert(id, randomItem, 1)
-    return f'You found {randomItem} x1'
+        return "You don't have a fishingrod, buy in -shop"
+    
 def river(id):
-    items = ['freshWater', 'rocks', 'smallFish', 'insect', 'rocks', 'freshWater']
+    items = ['freshWater', 'rock', 'smallFish', 'insect', 'rocks', 'freshWater']
     randomItem = random.choice(items)
     if getInvKey(id, randomItem):
         value = getInvValue(id, randomItem)

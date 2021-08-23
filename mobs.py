@@ -6,12 +6,12 @@ def dungeonLvl(floor):
 def defaultMob(floor):
     lvl = dungeonLvl(floor)
     ran = random.randint(lvl, lvl*2)
-    hp = (round((lvl * (10 ** 2)/ 2)) + 1) + ran
+    hp = (round((lvl * (10 ** 2)/ 5)) + 1) + ran
     ran = random.randint(lvl, lvl*2)
-    power = round((lvl * (10 ** 2/ 2)) + 1) + ran
+    power = round((lvl * (10 ** 2/ 5)) + 1) + ran
     ran = random.randint(lvl, lvl*2)
-    speed = ((lvl+5) * 20) + ran 
-    endurance = ((lvl+5) * 20) + ran
+    speed = (lvl * 20) + ran 
+    endurance = round((lvl * 20) / 5)
 
     return hp, power, speed, endurance
     

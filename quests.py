@@ -1,6 +1,6 @@
 import random
 from jsonDatabase import getDataValue, inserting
-def guess(gNum, difficulty, id):
+def guesser(gNum, difficulty, id):
     numbers = []
     for i in range(1, difficulty+1):
         numbers.append(i)

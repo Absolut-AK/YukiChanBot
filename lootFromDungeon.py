@@ -1,6 +1,15 @@
 import random
+from levelSystem import *
 def coinGain(id, floor):
     return int(floor) * 5
+
+def xpGain(id, floor):
+    floor = int(floor)
+    xp = round(xpNeeded(floor) / 3) + floor
+    savedXp = xp
+    xp = xp + getDataValue(id, 'exp')
+    inserting(id, 'exp', xp)
+    return savedXp
 
 def lootRarity(floor):
     floor = int(floor)

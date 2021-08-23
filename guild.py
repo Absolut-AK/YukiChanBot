@@ -1,4 +1,6 @@
 from jsonDatabase import *
+from profileStats import restOfProfile
+from fightingSystem import userStats
 def guildSignup(id, msg):
     print(msg.content.lower())
     if msg.content.lower() == 'y' or msg.lower == 'yes':
@@ -6,6 +8,9 @@ def guildSignup(id, msg):
             value = getDataValue(id, 'coin') - 100
             inserting(id, 'coin', value)
             inserting(id, 'guild', True)
+            restOfProfile(id)
+            userStats(id)
+            insertingDic(id, 'enemy')
             return 'Now you are registrated!!'
         else:
             return "Looks like you don't got enough"

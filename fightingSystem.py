@@ -8,13 +8,10 @@ from abilities import abilities
 def enemys(id, floor):
     enemy1 = defaultMob(floor)
     hp, power, speed, endurance = enemy1
-    print(type(endurance))
-    insertingDic(id, 'enemy')
     insertInDic(id, 'enemy', 'hp', hp)
     insertInDic(id, 'enemy', 'power', power)
     insertInDic(id, 'enemy', 'speed', speed)
     insertInDic(id, 'enemy', 'endurance', endurance)
-    print(hp, power, speed, type(endurance))
 
 def userStats(id):
     insertingDic(id, 'userStats')

@@ -6,7 +6,7 @@ from jsonDatabase import *
 from DiscordPetShop import Inventory
 from StarterClass import starterClass
 from profileStats import profileStats, inventorys
-from quests import guess, coinFlip
+from quests import guesser, coinFlip
 from location import locations
 from guild import guildSignup
 from levelSystem import *
@@ -15,6 +15,7 @@ from Shops import *
 from lootFromDungeon import *
 from fightingSystem import *
 from heal import healing
+from abilities import *
 client = discord.Client()
 client = commands.Bot(command_prefix='-')
 #commands
@@ -55,9 +56,9 @@ async def quests(ctx):
     🙤Free For Everyone:
     \t-guesser
     \t-coinflip
-    \t(On Progress)\n
+    \t-find(-location to see all locations)\n
     🙤Guilds only:
-    \t(On Progress)\n
+    \t-dungeon\n
     🙤Casino only:
     \t(on Progress)
     ''')
@@ -84,7 +85,7 @@ async def guess(ctx, gNum=0, diff=0):
         if gNum == None or diff == None:
             await ctx.send("Choose a number and 1 out of what(-guesser 10 10(min 10 no max), this an example, the user picked 10 and it is 1-100) o(≧▽≦)o")
         elif gNum > 0 and diff > 9:
-            await ctx.send(guess(gNum, diff, id))
+            await ctx.send(guesser(gNum, diff, id))
         else:
             await ctx.send("Choose a number and 1 out of what(-guesser 10 10(min 10 no max), this an example, the user picked 10 and it is 1-100) ٩(｡•́‿•̀｡)۶")
     else:
@@ -93,7 +94,7 @@ async def guess(ctx, gNum=0, diff=0):
 async def guild(ctx):
     id = ctx.message.author.id
     if getDataKey(id, 'guild'):
-        pass
+        await ctx.send("You are already signed in")
     else:
         await ctx.send("Hello, do you want to buy the guild pass for 100 coins? y/n")
         try:
@@ -128,6 +129,8 @@ async def inventory(ctx):
 
 @client.command()
 async def dungeon(ctx, floor=None):
+    if floor == None:
+        await ctx.send("enter floor number")
     id = ctx.message.author.id
     user = openNewDic(id, 'userStats')
     enemy = openNewDic(id, 'enemy')
@@ -141,19 +144,25 @@ async def dungeon(ctx, floor=None):
         else:
             while user['hp'] > 0:
                 while enemy['hp'] > 0:
-                    await ctx.send("Choose your ability, 1, 2, 3 ,4")
+                    abilities = ability(id)
+                    await ctx.send(f"Choose your ability, \n{abilities}")
                     try:
                         msg = await client.wait_for("message", timeout=30, check=lambda message: message.author == ctx.author and 
                         message.channel == ctx.channel)
                     except asyncio.TimeoutError:
-                        await ctx.message.delete()
+                        await ctx.send("You took to long")
                     await ctx.send(fight(id, msg))
                     user = openNewDic(id, 'userStats')
                     enemy = openNewDic(id, 'enemy')
                     if enemy['hp'] <= 0:
                         loot = lootGain(id, floor)
                         coin = coinGain(id, floor)
-                        await ctx.send(f"You killed enemy, earned {coin} coin, you got a {loot}")
+                        exp = xpGain(id, floor)
+                        
+                        await ctx.send(f"You killed enemy, earned {coin} coin, earned {exp} xp, and you got a {loot}")
+                        while levelUp(id, getDataValue(id, 'level'), getDataValue(id, 'exp')):
+                            await ctx.send("LevelUp")
+                            levelUp(id, getDataValue(id, 'level'), getDataValue(id, 'exp'))
                     elif user['hp'] <= 0:
                         await ctx.send("You died")
                         break
@@ -171,6 +180,27 @@ async def dungeon(ctx, floor=None):
 async def heal(ctx):
     id = ctx.message.author.id
     healing(id)
+
+@client.command()
+async def location(ctx):
+    embed = discord.Embed(title="Locations", description='''
+    🙤Forest
+    🙤River
+    🙤Cave
+    🙤Lake
+    ''')
+    await ctx.send(embed=embed)
+
+@client.command()
+async def shop(ctx, item=None):
+    id = ctx.message.author.id
+    text = shopList()
+    embed = discord.Embed(title="Shop Items", description=text)
+    if item != None:
+        await ctx.send(buy(id, item))
+
+    else:
+        await ctx.send(embed=embed)
 #hiddenCode
 def hiddenCode():
     client.run('ODQ2NTg1MDMyMTg5NTQyNDEw.YKxpwA.zUSGN7_vFNV7xIVV69Ulss1AdoE')

@@ -15,7 +15,6 @@ def check(id):
     else:
         data['users'].append({"_id": usersId})
         write_json(data)
-        print(data['users'], "Added (>_<)")
 
 def idIndexFinder(id):
     with open('database.json') as f:
