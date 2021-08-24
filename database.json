@@ -50,14 +50,14 @@
         {
             "_id": "288623940404772865",
             "class": "archer",
-            "level": 20,
+            "level": 48,
             "coin": 50,
-            "exp": 243793,
-            "power": 2070,
-            "hp": 195,
-            "speed": 250,
-            "endurance": 105,
-            "stamina": 210,
+            "exp": 62298,
+            "power": 2350,
+            "hp": 335,
+            "speed": 530,
+            "endurance": 245,
+            "stamina": 490,
             "abilities": {
                 "1": "normal",
                 "2": null,
@@ -65,14 +65,27 @@
                 "4": null
             },
             "artifacts": {
-                "weapon": "starter",
-                "hat": null,
-                "mask": null,
-                "shirt": null,
-                "pants": null,
-                "gloves": null,
-                "boots": null,
-                "ring": null
+                "weapon": {
+                    "rarity": "starter"
+                },
+                "hat": {
+                    "power": 100,
+                    "hp": 30
+                },
+                "mask": {},
+                "shirt": {},
+                "pants": {},
+                "gloves": {},
+                "boots": {},
+                "ring": {
+                    "rarity": "legendary",
+                    "stamina": 10,
+                    "speed": 50,
+                    "endurance": 25
+                },
+            "artifactInventory": {
+                
+            }
             },
             "inventory": {
                 "blackMushroom": 0,
@@ -82,16 +95,16 @@
             },
             "guild": true,
             "userStats": {
-                "hp": -529,
-                "power": 2000,
-                "speed": 180,
-                "endurance": 70,
-                "stamina": 140
+                "hp": -190,
+                "power": 2320,
+                "speed": 500,
+                "endurance": 230,
+                "stamina": 460
             },
             "enemy": {
-                "hp": -1095,
-                "power": 759,
-                "speed": 759,
+                "hp": -1435,
+                "power": 740,
+                "speed": 757,
                 "endurance": 140
             },
             "fishingrod": 50

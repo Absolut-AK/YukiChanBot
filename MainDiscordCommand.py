@@ -16,6 +16,7 @@ from lootFromDungeon import *
 from fightingSystem import *
 from heal import healing
 from abilities import *
+from artifactStats import *
 client = discord.Client()
 client = commands.Bot(command_prefix='-')
 #commands
@@ -155,11 +156,22 @@ async def dungeon(ctx, floor=None):
                     user = openNewDic(id, 'userStats')
                     enemy = openNewDic(id, 'enemy')
                     if enemy['hp'] <= 0:
-                        loot = lootGain(id, floor)
+                        rarity, artifact = lootGain(id, floor)
                         coin = coinGain(id, floor)
                         exp = xpGain(id, floor)
-                        
-                        await ctx.send(f"You killed enemy, earned {coin} coin, earned {exp} xp, and you got a {loot}")
+                        artifactStat = giveArtifactStats(id, rarity, artifact)
+                        await ctx.send(f"You killed enemy, earned {coin} coin, earned {exp} xp")
+                        await ctx.send(f"Artifact stats are... \n{artifactStat}")
+                        await ctx.send(f"Do you want to equip the artifact/weapon? y/n, else it will be sold")
+                        try:
+                            msg = await client.wait_for("message", timeout=30, check=lambda message: message.author == ctx.author and 
+                            message.channel == ctx.channel)
+                        except asyncio.TimeoutError:
+                            await ctx.send("You took to long, item will be sold")
+                        if msg.content.lower() == 'y' or msg.content.lower() == 'yes':
+                            giveArtifactStats(id, rarity, artifact)
+                        else:
+                            sellArtifact(id)
                         while levelUp(id, getDataValue(id, 'level'), getDataValue(id, 'exp')):
                             await ctx.send("LevelUp")
                             levelUp(id, getDataValue(id, 'level'), getDataValue(id, 'exp'))

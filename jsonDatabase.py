@@ -149,3 +149,24 @@ def getDicValue(id, dicName, name):
         insideDic = tempData[dicName]
         return insideDic[name]
 
+def insertingInArtifacts(id, artifact, key, value):
+    realId = idIndexFinder(id)
+    with open('database.json') as f:
+        data = json.load(f)
+        temp = data['users']
+        tempData = temp[realId]
+        insideDic = tempData['artifacts']
+        print(insideDic)
+        insideArtifact = insideDic[artifact]
+        insideArtifact[key] = value
+        write_json(data)
+
+def openArtifacts(id, name):
+    realId = idIndexFinder(id)
+    with open('database.json') as f:
+        data = json.load(f)
+        temp = data['users']
+        tempData = temp[realId]
+        artifactData = tempData['artifacts']
+        return artifactData[name]
+

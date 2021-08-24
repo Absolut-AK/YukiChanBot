@@ -1,18 +1,9 @@
 from jsonDatabase import *
 
-def getDataValue2(id, name):
-    realId = idIndexFinder(id)
-    with open('database.json') as f:
-        data = json.load(f)
-        temp = data['users']
-        tempData = temp[realId]
-        return tempData[name]
-
 def xpNeeded(lvl):
     return round((4 * (lvl ** 3 )) / 5)
 
 def levelUp(id, lvl, exp):
-    print(lvl, exp)
     xpNeed = xpNeeded(lvl)
     while exp >= xpNeed:
         inserting(id, 'level', lvl+1)
@@ -47,16 +38,8 @@ def levelUp(id, lvl, exp):
         exp = getDataValue(id, 'exp')
         lvl = getDataValue(id, 'level')
         xpNeed = xpNeeded(lvl)
-        print(lvl, exp)
-        test(id)
     return False
 
 def mobXp(lvl):
     return round((4 * (lvl ** 3)) / 103) + 1
-
-def test(id):
-    levelUp(id, getDataValue2(id, 'level'), getDataValue2(id, 'exp'))
-
-test(288623940404772865)
-print(getDataValue2(id, 'level'))
 

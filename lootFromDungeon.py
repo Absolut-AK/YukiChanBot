@@ -41,4 +41,8 @@ def lootGain(id, floor):
     lootItems = ['ring', 'hat', 'gloves', 'weapon', 'mask', 'shirt', 'pants']
     randomLoot = random.choice(lootItems)
     item = randomRarity + ' ' + randomLoot
-    return item
+    if getDicValue(id, 'artifacts', randomLoot) == None:
+        insertInDic(id, 'artifacts', randomLoot, item)
+    else:
+        pass
+    return randomRarity, randomLoot
