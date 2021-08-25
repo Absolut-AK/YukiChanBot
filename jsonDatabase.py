@@ -149,16 +149,14 @@ def getDicValue(id, dicName, name):
         insideDic = tempData[dicName]
         return insideDic[name]
 
-def insertingInArtifacts(id, artifact, key, value):
+def insertingInArtifacts(id, key, value):
     realId = idIndexFinder(id)
     with open('database.json') as f:
         data = json.load(f)
         temp = data['users']
         tempData = temp[realId]
         insideDic = tempData['artifacts']
-        print(insideDic)
-        insideArtifact = insideDic[artifact]
-        insideArtifact[key] = value
+        insideDic[key] = value
         write_json(data)
 
 def openArtifacts(id, name):
@@ -170,3 +168,51 @@ def openArtifacts(id, name):
         artifactData = tempData['artifacts']
         return artifactData[name]
 
+def insertingInArtifactsInv(id, artifact, key, value):
+    realId = idIndexFinder(id)
+    with open('database.json') as f:
+        data = json.load(f)
+        temp = data['users']
+        tempData = temp[realId]
+        insideDic = tempData['artifactInventory']
+        insideArtifact = insideDic[artifact]
+        insideArtifact[key] = value
+        write_json(data)
+
+def openArtifactsInv(id, name):
+    realId = idIndexFinder(id)
+    with open('database.json') as f:
+        data = json.load(f)
+        temp = data['users']
+        tempData = temp[realId]
+        artifactData = tempData['artifactInventory']
+        return artifactData[name]
+
+def openArtifactsInvAll(id):
+    realId = idIndexFinder(id)
+    with open('database.json') as f:
+        data = json.load(f)
+        temp = data['users']
+        tempData = temp[realId]
+        artifactData = tempData['artifactInventory']
+        return artifactData
+
+def editArtifact(id, artifact, key, value):
+    realId = idIndexFinder(id)
+    with open('database.json') as f:
+        data = json.load(f)
+        temp = data['users']
+        tempData = temp[realId]
+        insideDic = tempData['artifacts']
+        inArtifact = insideDic[artifact]
+        inArtifact[key] = value
+        write_json(data)
+
+def openArtifactsAll(id):
+    realId = idIndexFinder(id)
+    with open('database.json') as f:
+        data = json.load(f)
+        temp = data['users']
+        tempData = temp[realId]
+        artifactData = tempData['artifacts']
+        return artifactData

@@ -14,6 +14,7 @@ def creatingUserClass(id, c):
         inserting(id, "stamina", 20)
         insertingDic(id, "abilities")
         insertingDic(id, "artifacts")
+        insertingDic(id, "artifactInventory")
         insertingDic(id, "inventory")
     elif c == 'archer':
         inserting(id, "class", 'archer')
@@ -27,6 +28,7 @@ def creatingUserClass(id, c):
         inserting(id, "stamina", 20)
         insertingDic(id, "abilities")
         insertingDic(id, "artifacts")
+        insertingDic(id, "artifactInventory")
         insertingDic(id, "inventory")
     elif c == 'mage':
         inserting(id, "class", 'mage')
@@ -39,6 +41,7 @@ def creatingUserClass(id, c):
         inserting(id, "endurance", 10)
         inserting(id, "stamina", 20)
         insertingDic(id, "abilities")
+        insertingDic(id, "artifactInventory")
         insertingDic(id, "artifacts")
         insertingDic(id, "inventory")
 
@@ -53,6 +56,20 @@ def profileStats(id):
     stamina = getDataValue(id, "stamina")
     experience = getDataValue(id, "exp")
     nextLvlUp = xpNeeded(getDataValue(id, 'level'))
+    for key, value in openArtifactsInvAll(id).items():
+        for key, value in value.items():
+            if value == 'power':
+                power += value
+            elif value == 'hp':
+                hp += value
+            elif value == 'speed':
+                speed += value
+            elif value == 'endurance':
+                endurance += value
+            elif value == 'stamina':
+                stamina += value
+            else:
+                pass
     profileDescription = f"Level: {level} \n experience:{experience}/{nextLvlUp} \n Coin: {coin} \n Power: {power} \n Health: {hp} \n Speed: {speed} \n Endurance: {endurance} \n Mana/Stamina: {stamina}"
     return profileDescription
 
@@ -73,3 +90,11 @@ def restOfProfile(id):
     insertInDic(id, "artifacts", "gloves", {})
     insertInDic(id, "artifacts", "boots", {})
     insertInDic(id, "artifacts", "ring", {})
+    insertInDic(id, "artifactInventory", "weapon", {})
+    insertInDic(id, "artifactInventory", "hat", {})
+    insertInDic(id, "artifactInventory", "mask", {})
+    insertInDic(id, "artifactInventory", "shirt", {})
+    insertInDic(id, "artifactInventory", "pants", {})
+    insertInDic(id, "artifactInventory", "gloves", {})
+    insertInDic(id, "artifactInventory", "boots", {})
+    insertInDic(id, "artifactInventory", "ring", {})

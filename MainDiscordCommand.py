@@ -1,4 +1,6 @@
 import asyncio
+
+from discord import team
 from guild import guildSignup
 import discord
 from discord.ext import commands
@@ -17,6 +19,7 @@ from fightingSystem import *
 from heal import healing
 from abilities import *
 from artifactStats import *
+from Equipment import *
 client = discord.Client()
 client = commands.Bot(command_prefix='-')
 #commands
@@ -159,9 +162,13 @@ async def dungeon(ctx, floor=None):
                         rarity, artifact = lootGain(id, floor)
                         coin = coinGain(id, floor)
                         exp = xpGain(id, floor)
-                        artifactStat = giveArtifactStats(id, rarity, artifact)
+                        insertToArtifactInv(id, rarity, artifact)
+
+                        text = f"{artifact}: \n"
+                        for key, value in openArtifactsInv(id, artifact).items():
+                            text += f"{key}: {value} \n"
                         await ctx.send(f"You killed enemy, earned {coin} coin, earned {exp} xp")
-                        await ctx.send(f"Artifact stats are... \n{artifactStat}")
+                        await ctx.send(f"Artifact stats are... \n{text}")
                         await ctx.send(f"Do you want to equip the artifact/weapon? y/n, else it will be sold")
                         try:
                             msg = await client.wait_for("message", timeout=30, check=lambda message: message.author == ctx.author and 
@@ -169,9 +176,10 @@ async def dungeon(ctx, floor=None):
                         except asyncio.TimeoutError:
                             await ctx.send("You took to long, item will be sold")
                         if msg.content.lower() == 'y' or msg.content.lower() == 'yes':
-                            giveArtifactStats(id, rarity, artifact)
+                            equip(id, artifact)
+                            await ctx.send("equiped")
                         else:
-                            sellArtifact(id)
+                            await ctx.send(sellArtifact(id, rarity))
                         while levelUp(id, getDataValue(id, 'level'), getDataValue(id, 'exp')):
                             await ctx.send("LevelUp")
                             levelUp(id, getDataValue(id, 'level'), getDataValue(id, 'exp'))
@@ -191,7 +199,16 @@ async def dungeon(ctx, floor=None):
 @client.command()
 async def heal(ctx):
     id = ctx.message.author.id
-    healing(id)
+    await ctx.send("Do you want to heal? y/n")
+    try:
+        msg = await client.wait_for("message", timeout=30, check=lambda message: message.author == ctx.author and 
+        message.channel == ctx.channel)
+    except asyncio.TimeoutError:
+        await ctx.send("You took to long")
+    if msg.content.lower() == 'y' or msg.content.lower() == 'yes':
+        await ctx.send(healing(id))
+    else:
+        return "maybe next time then..."
 
 @client.command()
 async def location(ctx):
@@ -213,6 +230,21 @@ async def shop(ctx, item=None):
 
     else:
         await ctx.send(embed=embed)
+
+@client.command()
+async def artifacts(ctx):
+    id = ctx.message.author.id
+    text = userArtifacts(id)
+    embed = discord.Embed(title="Profile Artifacts", description=text)
+    await ctx.send(embed=embed)
+
+@client.command()
+async def upgrade(ctx, artifact):
+    id = ctx.message.author.id
+    if artifact != None:
+        await ctx.send(upgrades(id, artifact))
+    else:
+        await ctx.send("-upgrade (artifact you want to upgrade) ex. -upgrade weapon")
 #hiddenCode
 def hiddenCode():
     client.run('ODQ2NTg1MDMyMTg5NTQyNDEw.YKxpwA.zUSGN7_vFNV7xIVV69Ulss1AdoE')

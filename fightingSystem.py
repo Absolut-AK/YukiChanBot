@@ -20,6 +20,21 @@ def userStats(id):
     speed= getDataValue(id, 'speed')
     endurance = getDataValue(id, 'endurance')
     stamina = getDataValue(id, 'stamina')
+
+    for key, value in openArtifactsInvAll(id).items():
+        for key, value in value.items():
+            if value == 'power':
+                power += value
+            elif value == 'hp':
+                hp += value
+            elif value == 'speed':
+                speed += value
+            elif value == 'endurance':
+                endurance += value
+            elif value == 'stamina':
+                stamina += value
+            else:
+                pass
     insertInDic(id, 'userStats', 'hp', hp)
     insertInDic(id, 'userStats', 'power', power)
     insertInDic(id, 'userStats', 'speed', speed)
@@ -31,7 +46,6 @@ def fight(id, ability=1):
     ability = abilities(id, ability)
     user = openNewDic(id, 'userStats')
     enemy = openNewDic(id, 'enemy')
-    print(enemy['hp'])
     if user['speed'] >= enemy['speed']:
         enemy['hp'] = enemy['hp'] - ((user['power'] * ability) - enemy['endurance'])
         user['hp'] = user['hp'] - (enemy['power'] - user['endurance'])

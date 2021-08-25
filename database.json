@@ -1,63 +1,19 @@
 {
     "users": [
         {
-            "_id": "288623940404772864",
-            "class": "mage",
-            "level": 95,
-            "coin": 200,
-            "exp": 0,
-            "power": 955,
-            "hp": 960,
-            "speed": 475,
-            "endurance": 475,
-            "stamina": 960,
-            "abilities": {
-                "1": "normal",
-                "2": null,
-                "3": null,
-                "4": null
-            },
-            "inventory": {
-                "blueMushroom": 0,
-                "greenMushroom": 1,
-                "yellowMushroom": 4,
-                "redMushroom": 2,
-                "whiteMushroom": 2,
-                "blackMushroom": 2,
-                "iron": 3,
-                "coal": 2,
-                "sulfur": 2,
-                "gold": 1
-            },
-            "enemy": {
-                "hp": -34,
-                "power": 932,
-                "speed": 478,
-                "endurance": 478
-            },
-            "userStats": {
-                "hp": 46,
-                "power": 955,
-                "speed": 475,
-                "endurance": 475,
-                "stamina": 960
-            },
-            "guild": true
-        },
-        {
             "_id": "<built-in function id>"
         },
         {
             "_id": "288623940404772865",
             "class": "archer",
-            "level": 48,
-            "coin": 50,
-            "exp": 62298,
-            "power": 2350,
-            "hp": 335,
-            "speed": 530,
-            "endurance": 245,
-            "stamina": 490,
+            "level": 7,
+            "coin": 99800,
+            "exp": 244,
+            "power": 115,
+            "hp": 130,
+            "speed": 120,
+            "endurance": 40,
+            "stamina": 70,
             "abilities": {
                 "1": "normal",
                 "2": null,
@@ -68,62 +24,60 @@
                 "weapon": {
                     "rarity": "starter"
                 },
-                "hat": {
-                    "power": 100,
-                    "hp": 30
-                },
+                "hat": {},
                 "mask": {},
-                "shirt": {},
-                "pants": {},
-                "gloves": {},
-                "boots": {},
-                "ring": {
-                    "rarity": "legendary",
-                    "stamina": 10,
-                    "speed": 50,
-                    "endurance": 25
+                "shirt": {
+                    "rarity": "common",
+                    "speed": 10
                 },
+                "pants": {
+                    "rarity": "common",
+                    "endurance": 5
+                },
+                "gloves": {
+                    "rarity": "common",
+                    "power": 20,
+                    "endurance": 35
+                },
+                "boots": {},
+                "ring": {},
+                "endurance": 10,
+                "power": 40
+            },
             "artifactInventory": {
-                
-            }
+                "weapon": {},
+                "hat": {},
+                "mask": {},
+                "shirt": {
+                    "rarity": "common",
+                    "speed": 10
+                },
+                "pants": {
+                    "rarity": "common",
+                    "endurance": 5
+                },
+                "gloves": {
+                    "rarity": "common",
+                    "power": 20,
+                    "endurance": 5
+                },
+                "boots": {},
+                "ring": {}
             },
-            "inventory": {
-                "blackMushroom": 0,
-                "yellowMushroom": 0,
-                "smallFish": 2,
-                "hugeFish": 0
-            },
+            "inventory": {},
             "guild": true,
             "userStats": {
-                "hp": -190,
-                "power": 2320,
-                "speed": 500,
-                "endurance": 230,
-                "stamina": 460
+                "hp": -23,
+                "power": 105,
+                "speed": 110,
+                "endurance": 35,
+                "stamina": 70
             },
             "enemy": {
-                "hp": -1435,
-                "power": 740,
-                "speed": 757,
-                "endurance": 140
-            },
-            "fishingrod": 50
-        },
-        {
-            "_id": "469428297584082956",
-            "class": "mage",
-            "level": 1,
-            "coin": 0,
-            "exp": 0,
-            "power": 55,
-            "hp": 100,
-            "speed": 30,
-            "endurance": 10,
-            "stamina": 20,
-            "abilities": {},
-            "artifacts": {},
-            "inventory": {
-                "whiteMushroom": 1
+                "hp": -62,
+                "power": 109,
+                "speed": 105,
+                "endurance": 20
             }
         }
     ]

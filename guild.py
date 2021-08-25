@@ -2,7 +2,6 @@ from jsonDatabase import *
 from profileStats import restOfProfile
 from fightingSystem import userStats
 def guildSignup(id, msg):
-    print(msg.content.lower())
     if msg.content.lower() == 'y' or msg.lower == 'yes':
         if getDataValue(id, 'coin') >= 100:
             value = getDataValue(id, 'coin') - 100

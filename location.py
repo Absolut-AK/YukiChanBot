@@ -16,9 +16,7 @@ def forest(id):
     randomItem = random.choice(items)
     if getInvKey(id, randomItem):
         value = getInvValue(id, randomItem)
-        print(value)
         value += 1
-        print(value)
         invInsert(id, randomItem, value)
     else:
         invInsert(id, randomItem, 1)
@@ -29,9 +27,7 @@ def cave(id):
         randomItem = random.choice(items)
         if getInvKey(id, randomItem):
             value = getInvValue(id, randomItem)
-            print(value)
             value += 1
-            print(value)
             invInsert(id, randomItem, value)
         else:
             invInsert(id, randomItem, 1)
@@ -44,9 +40,7 @@ def lake(id):
         randomItem = random.choice(items)
         if getInvKey(id, randomItem):
             value = getInvValue(id, randomItem)
-            print(value)
             value += 1
-            print(value)
             invInsert(id, randomItem, value)
         else:
             invInsert(id, randomItem, 1)
@@ -59,9 +53,7 @@ def river(id):
     randomItem = random.choice(items)
     if getInvKey(id, randomItem):
         value = getInvValue(id, randomItem)
-        print(value)
         value += 1
-        print(value)
         invInsert(id, randomItem, value)
     else:
         invInsert(id, randomItem, 1)
