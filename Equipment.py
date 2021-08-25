@@ -7,6 +7,9 @@ def upgrades(id, artifact):
     rarity = openArtifacts(id, artifact)['rarity']
     rarityArtifact = {'common': 1, 'uncommon': 2, 'rare': 3, 'epic': 4, 'legendary': 5, "lapiz": 6, "iron": 7, "gold": 8, "ruby": 9, "saphire": 10, "diamond":11}
     if getDataValue(id, 'coin') >= rarityArtifact[rarity] * 500:
+        coin = getDataValue(id, 'coin')
+        coin -= rarityArtifact[rarity] * 500
+        inserting(id, 'coin', coin)
         artifactDic = openArtifacts(id, artifact)
         stats = []
         for i in range(len(artifactDic)):
@@ -21,6 +24,7 @@ def upgrades(id, artifact):
             if 'power' in artifactDic:
                 stats.append("power")
         randomStats = random.choice(stats)
+        print(stats)
         print(randomStats)
         if randomStats == "power":
             power = rarityArtifact[rarity] * 20

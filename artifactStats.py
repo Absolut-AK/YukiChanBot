@@ -75,9 +75,8 @@ def sellArtifact(id, rarity, ammount=1):
 
 def userArtifacts(id):
     text = ''
-    test = openArtifactsAll(id)
-    for key, value in test.items():
-        text += f"{key}: \n"
-        for key, value in value.items():
+    for keys, values in openArtifactsAll(id).items():
+        text += f"{keys}: \n"
+        for key, value in values.items():
             text += f"\t{key}: {value} \n"
     return text

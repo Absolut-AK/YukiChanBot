@@ -48,10 +48,12 @@ def fight(id, ability=1):
     enemy = openNewDic(id, 'enemy')
     if user['speed'] >= enemy['speed']:
         enemy['hp'] = enemy['hp'] - ((user['power'] * ability) - enemy['endurance'])
-        user['hp'] = user['hp'] - (enemy['power'] - user['endurance'])
+        if enemy['hp'] > 0:
+            user['hp'] = user['hp'] - (enemy['power'] - user['endurance'])
     elif enemy['speed'] >= user['speed']:
         user['hp'] = user['hp'] - (enemy['power'] - user['endurance'])
-        enemy['hp'] = enemy['hp'] - ((user['power'] * ability) - enemy['endurance'])
+        if user['hp'] > 0:
+            enemy['hp'] = enemy['hp'] - ((user['power'] * ability) - enemy['endurance'])
     
     insertInDic(id, 'enemy', 'hp', enemy['hp'])
     insertInDic(id, 'userStats', 'hp', user['hp'])

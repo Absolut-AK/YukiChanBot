@@ -1,6 +1,9 @@
 import random
 from levelSystem import *
 def coinGain(id, floor):
+    coin = getDataValue(id, 'coin')
+    coin += int(floor) * 5
+    inserting(id, 'coin', coin)
     return int(floor) * 5
 
 def xpGain(id, floor):

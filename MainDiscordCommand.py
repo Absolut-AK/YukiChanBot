@@ -20,8 +20,10 @@ from heal import healing
 from abilities import *
 from artifactStats import *
 from Equipment import *
+from helpText import helps
 client = discord.Client()
 client = commands.Bot(command_prefix='-')
+client.remove_command('help')
 #commands
 @client.command()
 async def petshop(ctx):
@@ -245,6 +247,13 @@ async def upgrade(ctx, artifact):
         await ctx.send(upgrades(id, artifact))
     else:
         await ctx.send("-upgrade (artifact you want to upgrade) ex. -upgrade weapon")
+
+@client.command()
+async def help(ctx):
+    text = helps()
+    embed = discord.Embed(title="Tutorial for Yuki's DiscordBot", description=text)
+    embed.set_footer(text="This is yuki's beta version of the game, there are a lot missed future, it took 3 weeks, I think, I forgot... well have fun ig")
+    await ctx.send(embed=embed)
 #hiddenCode
 def hiddenCode():
     client.run('ODQ2NTg1MDMyMTg5NTQyNDEw.YKxpwA.zUSGN7_vFNV7xIVV69Ulss1AdoE')
