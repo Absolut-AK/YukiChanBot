@@ -10,5 +10,7 @@ def helps():
     -inventory (to see your items)\n
     -location (to see all location for -find)\n
     -heal (This is for restoring your health)\n
+    -guild (This is needed to enter -dungeon)
+    -dungeon 'floor number' (the higher the floor the harder the boss, min floor 1, max floor 100)
     """
     return helpText
