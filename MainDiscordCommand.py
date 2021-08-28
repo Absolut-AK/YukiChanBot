@@ -25,6 +25,9 @@ client = discord.Client()
 client = commands.Bot(command_prefix='-')
 client.remove_command('help')
 #commands
+@client.event
+async def on_ready():
+    await client.change_presence(activity=discord.Game(name="-help for information"))
 @client.command()
 async def petshop(ctx):
     await ctx.send(Inventory)
