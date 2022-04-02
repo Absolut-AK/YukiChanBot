@@ -259,5 +259,5 @@ async def help(ctx):
     await ctx.send(embed=embed)
 #hiddenCode
 def hiddenCode():
-    client.run('ODQ2NTg1MDMyMTg5NTQyNDEw.YKxpwA.zUSGN7_vFNV7xIVV69Ulss1AdoE')
+    client.run('Discord Token')
 hiddenCode()    
