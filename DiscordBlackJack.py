@@ -1,149 +1,106 @@
-import discord
-from discord.ext import commands
 import random
-client = discord.Client()
-
-def blackJack():
-    embed = discord.Embed(title = "BlackJack", description = 'test')
-    #embed.set_thumbnail(url = 'C:\Users\Yuki\Desktop\DesktopFolders\projects\gitRespondotory\discordBot\discordBot\YukiChanBot\images\blackJackIcon.png')
-    cardPoints = [2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 
-                        6, 6, 6, 6, 7, 7, 7, 7, 8, 8, 8, 8,9, 9, 9, 9, 10, 
-                        10, 10, 10, 10, 10, 10, 10,10, 10, 10, 10,10, 10, 10, 
-                        10,'a', 'a', 'a', 'a', 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 
-                        6, 6, 6, 6, 7, 7, 7, 7, 8, 8, 8, 8,9, 9, 9, 9, 10, 
-                        10, 10, 10, 10, 10, 10, 10,10, 10, 10, 10,10, 10, 10, 
-                        10,'a', 'a', 'a', 'a']
-    playerCards = []
-    computerCards = []
-    compSum = 0
-    playerSum = 0 
-    #shuffle
-    if len(cardPoints) <= 26:
-        cardPoints = [2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 
-                        6, 6, 6, 6, 7, 7, 7, 7, 8, 8, 8, 8,9, 9, 9, 9, 10, 
-                        10, 10, 10, 10, 10, 10, 10,10, 10, 10, 10,10, 10, 10, 
-                        10,'a', 'a', 'a', 'a', 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 
-                        6, 6, 6, 6, 7, 7, 7, 7, 8, 8, 8, 8,9, 9, 9, 9, 10, 
-                        10, 10, 10, 10, 10, 10, 10,10, 10, 10, 10,10, 10, 10, 
-                        10,'a', 'a', 'a', 'a']
-        print("dealer shuffeling")
-    #bustedCheck
-    def busted(sum):
-        if sum > 21:
-            print("busted")
-            leaveOrStay()
-        if sum < 21:
-            return False
-
-    #blackJack for player
-    def natural(hand):
-        hand = aceSwitch(playerCards)
-        if hand == 21:
-            print("blackJack")
-            leaveOrStay()
-
-    # wincondition
-    def winCondition():
-        global compSum, playerSum
-        if compSum == playerSum:
-            print('draw')
-            leaveOrStay()
-        elif compSum > playerSum and compSum <= 21:
-            print('dealer win')
-            leaveOrStay()
-        elif playerSum > compSum and playerSum <= 21:
-            print('you win')
-            leaveOrStay()
+from this import d
+print()
+class BlackJack:
+    def __init__(self):
+        self.card = [2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 7, 8, 8, 8, 8, 9, 9, 9, 9, 10, 10, 10, 10,
+        "j", "j", "j", "j", "q", "q", "q", "q", "k", "k", "k", "k", "a", "a", "a", "a"]
+        self.dealerHand = []
+        self.userHand = []
+        self.hand()
     
-    #computerRules
-    def computerCheck():
-        global compSum
-        if compSum > 16:
-            winCondition()
+    #starting hand
+    def hand(self):
+        #user starting hand
+        card = random.choice(self.card)
+        self.userHand.append(card)
+        self.card.remove(card)
+        card = random.choice(self.card)
+        self.userHand.append(card)
+        self.card.remove(card)
 
-    #drawCard
-    def drawCard(numb):
-        drawCards = []
-        for i in range(numb):
-            draw = random.choice(cardPoints)
-            drawCards.append(draw)
-            cardPoints.remove(draw)
-        return drawCards
+        #dealer starting hand
+        card = random.choice(self.card)
+        self.dealerHand.append(card)
+        self.card.remove(card)
+        card = random.choice(self.card)
+        self.dealerHand.append(card)
+        self.card.remove(card)
 
-    #sumWithAce
-    def aceSwitch(cardList):
-            add = 0
-            subList = []
-            for i in range(0, len(cardList)):
-                if cardList[i] == 11:
-                    subList.append(1)
-                elif 'a' not in cardList:
-                    add = sum(cardList) 
-                else:
-                    for i in range(0, len(cardList)):
-                        subList.append(i)
-                    for i in range(0, len(subList)):
-                        add += subList[i]          
-            return add
+        print(f"Dealer has x and {self.dealerHand[1]}, you got {self.userHand[0]} and {self.userHand[1]}")
 
-    #2cards each
-    def firstCards():
-        twoCards = drawCard(2)
-        return twoCards
-
-    #start of game
-    def start():
-        global playerCards, computerCards
-        playerCards = []
-        computerCards = []
-        playerCards += firstCards()
-        natural(playerCards)
-        computerCards += firstCards()
-        print(f"Dealer cards are x & {computerCards[1]} \n Your cards are {playerCards[0]} & {playerCards[1]}")
-        print("Do you want to hit?")
-        hitOrNot()
-
-    #desisions
-    def hitOrNot():
-        print("yes or no y/n")
-        yn = input()
-        if yn == 'y':
-            hit()
-        elif yn == 'n':
-            stay()
+        hs = input("Hit or stand (h/s)")
+        if hs == "h":
+            self.hit()
+        elif hs == "s":
+            self.stand()
         else:
-            hitOrNot()
+            print("I guess stand...")
+            self.stand()
 
-    def leaveOrStay():
-        print("you want to leave the table?")
-        yn = input()
-        if yn == 'y':
-            print("Thank you for playing")
-        elif yn == 'n':
-            start()
-        else:
-            leaveOrStay()
     #hit
-    def hit():
-        global playerCards, playerSum
-        playerCards += drawCard(1)
-        print(playerCards)
-        playerSum = aceSwitch(playerCards)
-        if busted(playerSum) == False:
-            hitOrNot()
-
-    #stay
-    def stay():
-        global compSum, computerCards, playerSum, playerCards
-        compSum = aceSwitch(computerCards)
-        playerSum = aceSwitch(playerCards)
-        print(computerCards)
-        if compSum <= 21 and compSum > playerSum :
-            winCondition()
+    def hit(self):
+        card = random.choice(self.card)
+        self.userHand.append(card)
+        self.card.remove(card)
+        print(f"you got a {card}.")
+        userSum = self.cal(self.userHand)
+        if userSum > 21:
+            print("Bust")
         else:
-            computerCards += drawCard(1)
-            computerCheck()
-            if busted(compSum) == False:
-                stay()
-    start()
-blackJack()
+            hs = input("hit or stand (h/s)")
+            if hs == 'h':
+                self.hit()
+            elif hs == "s":
+                self.stand()
+            else:
+                print("I guess stand...")
+                self.stand()
+
+    #stand
+    def stand(self):
+        userSum = self.cal(self.userHand)
+        dealerSum = self.cal(self.dealerHand)
+        print(f"Dealer has {self.dealerHand[0]} and {self.dealerHand[1]}")
+        print(userSum > dealerSum, dealerSum < 18, dealerSum < 21)
+        while userSum > dealerSum and dealerSum < 17 and dealerSum < 21:
+            card = random.choice(self.card)
+            self.dealerHand.append(card)
+            self.card.remove(card)
+            print(f"Dealer hit {card}")
+            dealerSum = self.cal(self.dealerHand)
+    
+        if dealerSum > 21:
+            print("Dealer Bust")
+        elif dealerSum >= 17:
+            if userSum > dealerSum:
+                print("You won")
+            elif userSum < dealerSum:
+                print("Dealer Won")
+            else:
+                print("tie")
+        elif dealerSum == userSum:
+            print("Tie")
+    #win calculations of hand and with ace
+    def cal(self, hand):
+        sum = 0
+        aces = 0
+        #calculate the sum
+        for i in hand:
+            if isinstance(i, int):
+                sum += i
+            elif i == "j" or i == "q" or i == "k":
+                sum += 10
+            else:
+                sum += 11
+        #count aces'
+        if sum > 21:
+            for i in hand:
+                if i == 'a':
+                    aces += 1
+            while sum > 21 and aces > 0:
+                aces -= 1
+                sum -= 10
+        return sum
+    
+BlackJack()
