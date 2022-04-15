@@ -117,7 +117,7 @@
             },
             "inventory": {
                 "whiteMushroom": 0,
-                "redMushroom": 0,
+                "redMushroom": 94,
                 "blueMushroom": 0,
                 "greenMushroom": 0,
                 "yellowMushroom": 0,
@@ -126,7 +126,8 @@
                 "rock": 0,
                 "rocks": 3,
                 "insect": 0,
-                "smallFish": 0
+                "smallFish": 0,
+                "healingPotion": 2
             },
             "guild": true,
             "userStats": {
