@@ -1,4 +1,5 @@
 import asyncio
+import os
 
 from discord import team
 from guild import guildSignup
@@ -259,5 +260,9 @@ async def help(ctx):
     await ctx.send(embed=embed)
 #hiddenCode
 def hiddenCode():
-    client.run('Discord Token')
+    path = "..\\YukiChanToken"
+    os.chdir(path)
+    with open('token.txt', 'r') as f:
+        token = f.read()
+        client.run(token)
 hiddenCode()    
